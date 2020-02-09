@@ -2,11 +2,11 @@ class Node(object):
     def __init__(self, data):
         self.data = data
         self.next = None
-    
 
 class ItemList(object):
     def __init__(self):
         self.head = None
+        self.tail = None
         self.count = 0
 
     def printList(self):
@@ -23,6 +23,23 @@ class ItemList(object):
 
     def get_count(self):
         return self.count
+
+    def insert(self, newValue):
+        n = Node(newValue)
+        if self.head == None:
+            self.head = n
+            self.tail = n
+            self.count += 1
+            return
+        
+        c = self.head
+        while c.next != None:
+            c = c.next
+        
+        c.next = n
+        self.tail = n
+        self.count += 1
+        return
 
     def insertInOrder(self, newValue):
         n = Node(newValue)
@@ -61,21 +78,6 @@ class ItemList(object):
                 self.count += 1
                 return
             c = c.next
-        return
-    
-    def insert(self, newValue):
-        n = Node(newValue)
-        if self.head == None:
-            self.head = n
-            self.count += 1
-            return
-        
-        c = self.head
-        while c.next != None:
-            c = c.next
-        
-        c.next = n
-        self.count += 1
         return
 
     def deDup(self):
@@ -121,6 +123,11 @@ class ItemList(object):
             return None
         return self.head.data
 
+    def getTail(self):
+        if self.tail == None:
+            return None
+        return self.tail.data
+
     def insertHead(self, newValue):
         n = Node(newValue)
         if self.head == None:
@@ -130,15 +137,59 @@ class ItemList(object):
         
         n.next = self.head
         self.head = n
+        self.count += 1
+        return
+
+    def insertTail(self, newValue):
+        n = Node(newValue)
+        if self.tail == None:
+            self.head = n
+            self.tail = n
+            self.count += 1
+            return
+        
+        self.tail.next = n
+        self.tail = n
+        self.count += 1
         return
 
     def deleteHead(self):
         if self.head == None:
             return None
-        
+
         n = self.head
+        if self.head == self.tail:
+            self.tail = self.tail.next
+        
         self.head = self.head.next
         n.next = None
         self.count -= 1
         return n.data
         
+    def deleteTail(self):
+        if self.tail == None:
+            return None
+        
+        n = self.tail
+        self.head = self.head.next
+        n.next = None
+        self.count -= 1
+        return n.data
+
+
+
+
+
+#l = ItemList()
+#print("Stack")
+#l.stackPush(0)
+#l.printList()
+#l.stackPush(20)
+#l.printList()
+#print("Popped: ", l.stackPop())
+#l.printList()
+#l.stackPush(9)
+#l.printList()
+#l.stackPush("test")
+#l.printList()
+#print("Peeked: ", l.stackPeek())
