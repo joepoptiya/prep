@@ -54,13 +54,16 @@ class ItemList(object):
                 n.next = c.next
                 c.next = n
                 self.count += 1
+                self.tail = n
                 return
             elif c.next == None and c.data < newValue:
                 n.next = c.next
                 c.next = n
                 self.count += 1
+                self.tail = n
                 return
             c = c.next
+        
         return
 
     def insertInOrderDup(self, newValue):
@@ -171,25 +174,26 @@ class ItemList(object):
             return None
         
         n = self.tail
-        self.head = self.head.next
+        if self.head == self.tail:
+          self.head = self.head.next
+
+        self.tail = self.tail.next
         n.next = None
         self.count -= 1
         return n.data
 
+    def getMiddle(self):
+        if self.tail == None:
+            return None
+
+        s = self.head
+        f = self.head
+
+        while f != None:
+          s = s.next
+          f = f.next
+          f = f.next
+
+        return s.data
 
 
-
-
-#l = ItemList()
-#print("Stack")
-#l.stackPush(0)
-#l.printList()
-#l.stackPush(20)
-#l.printList()
-#print("Popped: ", l.stackPop())
-#l.printList()
-#l.stackPush(9)
-#l.printList()
-#l.stackPush("test")
-#l.printList()
-#print("Peeked: ", l.stackPeek())
