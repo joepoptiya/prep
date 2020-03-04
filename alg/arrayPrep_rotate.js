@@ -11,39 +11,40 @@ function getGCD(a,b) {
     return getGCD(b, a % b);
 }
 
-console.log(7, 2, getGCD(7,2));
-
 function leftRotateArray(arr, n) {
     let l = arr.length-1;
     let gcd = getGCD(arr.length, n);
     let sets = arr.length / gcd;
-    console.log("GCD = " + gcd, "Sets = " + sets);
+//    console.log("GCD = " + gcd, "Sets = " + sets);
 
     let i = 0;
     let offSet = 0;
     while (i<gcd) {
-        let s = "";
-        let p = "";
+//        let s = "";
+//        let p = "";
         let t = arr[i];
         let pidx = 0;
         let idx = 0;
         for (let x = 1; x < sets; x++) {
             pidx = i + (gcd * (x - 1)); 
             idx = i + (gcd * x);
-            s += arr[idx];
-            p += arr[pidx];
+//            s += arr[idx];
+//            p += arr[pidx];
             arr[pidx] = arr[idx];
         }
         arr[idx] = t;
-        console.log(p);
-        console.log(s);
+//        console.log(p);
+//        console.log(s);
         i++;        
     }
 }
 
 let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; //,8,9,10,11];
-//console.log(arr);
 PrintArray(arr);
 leftRotateArray(arr, 3);
-//console.log(arr);
+PrintArray(arr);
+
+arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+PrintArray(arr);
+leftRotateArray(arr, 4);
 PrintArray(arr);
