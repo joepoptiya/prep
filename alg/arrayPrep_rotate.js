@@ -43,7 +43,7 @@ let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]; //,8,9,10,11];
 PrintArray(arr);
 leftRotateArray(arr, 3);
 PrintArray(arr);
-
+console.log();
 arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 PrintArray(arr);
 leftRotateArray(arr, 4);
