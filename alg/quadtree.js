@@ -32,38 +32,37 @@ class QuadTree {
     }
 
     subdivide() {
-        // let nW = this.Boundary.W / 2;
-        // let nH = this.Boundary.H / 2;
-        // let tx = this.Boundary.X;
-        // let ty = this.Boundary.Y;
-        // let tw = this.Boundary.W;
-        // let th = this.Boundary.H;
+        let nW = this.Boundary.W / 2;
+        let nH = this.Boundary.H / 2;
+        let tx = this.Boundary.X;
+        let ty = this.Boundary.Y;
+        let tw = this.Boundary.W;
+        let th = this.Boundary.H;
 
-        // let uw = new Rectangle(tx - (nW), this.Boundary.Y - (nH), nW, nH);
-        // let ue = new Rectangle(tx + (nW), this.Boundary.Y - (nH), nW, nH);
-        // let lw = new Rectangle(tx - (nW), this.Boundary.Y + (nH), nW, nH);
-        // let le = new Rectangle(tx + (nW), this.Boundary.Y + (nH), nW, nH);
+        let uw = new Rectangle(tx - (nW), this.Boundary.Y - (nH), nW, nH);
+        let ue = new Rectangle(tx + (nW), this.Boundary.Y - (nH), nW, nH);
+        let lw = new Rectangle(tx - (nW), this.Boundary.Y + (nH), nW, nH);
+        let le = new Rectangle(tx + (nW), this.Boundary.Y + (nH), nW, nH);
 
-        // this.NW = new QuadTree(uw, this.Capacity);
-        // this.NE = new QuadTree(ue, this.Capacity);
-        // this.SW = new QuadTree(lw, this.Capacity);
-        // this.SE = new QuadTree(le, this.Capacity);
+        this.NW = new QuadTree(uw, this.Capacity);
+        this.NE = new QuadTree(ue, this.Capacity);
+        this.SW = new QuadTree(lw, this.Capacity);
+        this.SE = new QuadTree(le, this.Capacity);
 
-        let x = this.Boundary.X;
-        let y = this.Boundary.Y;
-        let w = this.Boundary.W;
-        let h = this.Boundary.H;
+        // let x = this.Boundary.X;
+        // let y = this.Boundary.Y;
+        // let w = this.Boundary.W;
+        // let h = this.Boundary.H;
 
+        // let nw = new Rectangle(x - w / 2, y - h / 2, w/2, h/2);
+        // let ne = new Rectangle(x + w / 2, y - h / 2, w/2, h/2);
+        // let sw = new Rectangle(x - w / 2, y + h / 2, w/2, h/2);
+        // let se = new Rectangle(x + w / 2, y + h / 2, w/2, h/2);
 
-        let nw = new Rectangle(x - w / 2, y - h / 2, w/2, h/2);
-        let ne = new Rectangle(x + w / 2, y - h / 2, w/2, h/2);
-        let sw = new Rectangle(x - w / 2, y + h / 2, w/2, h/2);
-        let se = new Rectangle(x + w / 2, y + h / 2, w/2, h/2);
-
-        this.NW = new QuadTree(nw);
-        this.NE = new QuadTree(ne);
-        this.SW = new QuadTree(sw);
-        this.SE = new QuadTree(se);
+        // this.NW = new QuadTree(nw);
+        // this.NE = new QuadTree(ne);
+        // this.SW = new QuadTree(sw);
+        // this.SE = new QuadTree(se);
 
         this.Divided = true;
     }
@@ -75,6 +74,7 @@ class QuadTree {
         if (this.Points.length < this.Capacity) {
             this.Points.push(point);
             //console.log("Capacity taken", this.Points.length);
+            return true;
         } else {
             // subdevide
             if (!this.Divided) {
@@ -87,10 +87,15 @@ class QuadTree {
             // else if (this.SW.Boundary.Contains(point)) this.SW.Insert(point);
             // else if (this.SW.Boundary.Contains(point)) this.SW.Insert(point);
 
-            this.NW.Insert(point);
-            this.NE.Insert(point);
-            this.SW.Insert(point);
-            this.SW.Insert(point);
+            if (!this.NW.Insert(point)) return false;
+            else if (!this.NE.Insert(point)) return false;
+            else if (!this.SW.Insert(point)) return false;
+            else if (!this.SW.Insert(point)) return false;
+
+            // this.NW.Insert(point);
+            // this.NE.Insert(point);
+            // this.SW.Insert(point);
+            // this.SW.Insert(point);
 
         }
     }
@@ -119,9 +124,9 @@ let qtree;
 
 function setup() {
     createCanvas(400, 400);
-    background(255);
+    //background(255);
 
-    let boundary = new Rectangle(200, 200, 400, 400);
+    let boundary = new Rectangle(200, 200, 200, 200);
     qtree = new QuadTree(boundary, 4);
     console.log(qtree);
 
